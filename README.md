@@ -17,5 +17,14 @@ Como vimos em aula, aleatoriedade é uma estratégia bastante comum para constru
 
 Essa implementação consiste na adaptação da heurística gulosa de nosso projeto. A proposta é que você modifique a sua heurística gulosa de modo que ao longo da seleção de um filme você tenha 25% de chance de pegar outro filme qualquer que respeite o horário. Isso fará com que sua heurística tenha um pouco mais de exploration e possamos ter alguns resultados melhores.
 
+## Paralelismo com OpenMP
+Até agora experimentamos heurísticas que buscaram resolver o nosso problema em um tempo razoável, sem garantias de otimalidade. É chegado o momento de incorporar o paralelismo de tarefas em nossas alternativas de resolução.
+
+Para isso, você deve modificar a versão exaustiva de sua implementação. Você pode fazer uso da diretiva #pragma omp parallel for para distribuir as iterações de um loop entre as threads disponíveis. Dentro do loop, você pode fazer a verificação de cada filme e, caso ele esteja dentro das restrições de horário e categoria, incrementar uma variável compartilhada count. Observe que por ser uma variável compartilhada, você precisa preservar essa região crítica entre as threads.
+
+Vale ressaltar que o uso do OpenMP não necessariamente irá garantir um desempenho melhor, pois a paralelização tem um overhead que pode acabar diminuindo a performance do programa em alguns casos. É importante fazer testes para verificar se a utilização do OpenMP é realmente benéfica para o problema em questão.
+
+## Paralelismo com GPU
+Esta etapa do projeto consiste em resolver nosso problema por meio da biblioteca Thrust. Sua tarefa é realizar essa implementação em C++ com a Thrust e comparar o desempenho frente as demais implementações.
 
 [Relatório](report.ipynb)
